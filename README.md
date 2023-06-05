@@ -1,19 +1,21 @@
 # Laravel 9 Vite - ADI PUTRA
+
 ## Spesifikasi
 
-1. PHP: Laravel 9.19 membutuhkan PHP 8.0.0 atau lebih tinggi. Pastikan Anda telah menginstal PHP di sistem Anda dan versi PHP yang diperlukan terpenuhi.
+1. PHP: Laravel 9.19 membutuhkan PHP 8.0.0 atau versi yang lebih tinggi. Pastikan Anda telah menginstal PHP di sistem Anda dan memenuhi persyaratan versi PHP yang diperlukan.
 
-2. composer: Laravel menggunakan Komposer untuk mengelola dependensinya. Pastikan Anda telah menginstal Composer di sistem Anda.
+2. Composer: Laravel menggunakan Composer untuk mengelola dependensi. Pastikan Anda telah menginstal Composer di sistem Anda.
 
-3. Server Web: Anda memerlukan server web untuk menjalankan aplikasi Laravel Anda. Anda dapat menggunakan server web populer seperti Apache atau Nginx.
+3. Server Web: Anda memerlukan server web untuk menjalankan aplikasi Laravel. Anda dapat menggunakan server web populer seperti Apache atau Nginx.
 
-4. Database: Laravel mendukung berbagai database seperti MySQL, PostgreSQL, SQLite, dan SQL Server. Pastikan Anda telah menginstal dan mengonfigurasi server database yang didukung.
+4. Database: Laravel mendukung beberapa jenis database seperti MySQL, PostgreSQL, SQLite, dan SQL Server. Pastikan Anda telah menginstal dan mengonfigurasi server database yang didukung.
 
-5. NodeJs V.18
+5. Node.js versi 18.
+
 ## Instalasi
 
 1. Pastikan Anda telah menginstal PHP, Composer, dan Node.js di mesin Anda.
-2. Clone repositori ini ke direktori lokal Anda menggunakan perintah berikut:
+2. Clone repositori ini ke direktori lokal Anda dengan menggunakan perintah berikut:
 
 ```bash
 git clone https://github.com/adptra01/mu-jambi.git
@@ -25,7 +27,7 @@ git clone https://github.com/adptra01/mu-jambi.git
 cd mu-jambi
 ```
 
-4. Instal dependensi PHP melalui Composer:
+4. Instal dependensi PHP menggunakan Composer:
 
 ```bash
 composer install
@@ -43,10 +45,22 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-7. Instal dependensi JavaScript melalui Node.js:
+7. Instal dependensi JavaScript menggunakan Node.js:
 
 ```bash
 npm install
+```
+
+8. Buat database baru dengan nama 'laravel' atau sesuaikan dengan konfigurasi di file `.env`. Kemudian, lakukan migrasi dan seeding:
+
+```bash
+php artisan migrate --seed
+```
+
+   atau
+
+```bash
+php artisan migrate:fresh --seed
 ```
 
 ## Penggunaan
@@ -63,15 +77,20 @@ npm run dev
 php artisan serve
 ```
 
-3. Buka browser dan akses http://localhost:8000 untuk melihat aplikasi Laravel yang berjalan dengan server Vite yang diintegrasikan.
+3. Buka browser dan akses http://localhost:8000 untuk melihat aplikasi Laravel yang berjalan dengan server Vite yang terintegrasi.
 
+4. Gunakan akun yang telah terdaftar untuk masuk:
 
-## Lisensi
+   Role: admin
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+   Email: admin@example.com
+   Password: password
 
----
+   Role: writer
 
-```bash
-https://github.com/adptra01/mu-jambi
-```
+   Email: writer@example.com
+   Password: password
+
+Pastikan untuk menyesuaikan informasi pengguna dengan yang telah terdaftar di dalam sistem.
+
+Terima kasih, dan semoga berhasil! Jika Anda memiliki pertanyaan lebih lanjut, jangan ragu untuk bertanya.
