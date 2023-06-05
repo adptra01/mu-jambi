@@ -21,10 +21,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::post('publish/{id}', [HomeController::class, 'publish'])->name('publish');
-Route::post('unpublish/{id}', [HomeController::class, 'unpublish'])->name('unpublish');
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::post('publish/{id}', [HomeController::class, 'publish'])->name('publish');
+    Route::post('unpublish/{id}', [HomeController::class, 'unpublish'])->name('unpublish');    
+});
 
 Route::prefix('post')->group(function () {
     Route::post('/', [PostController::class, 'store'])->name('post.store');

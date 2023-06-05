@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
     {
         Category::factory(10)->create();
         Post::factory(10)->create();
+        
+        $this->call([
+            RoleAndPermissionSeeder::class,
+        ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

@@ -19,42 +19,44 @@
         </div>
 
         <div class="card mt-4">
-            <form action="{{ Route('post.store') }}" method="POST">
-                @csrf
-                <div class="card-header">
-                    <div class="mb-3">
-                        <label for="title" class="form-label">title</label>
-                        <input type="text" name="title" class="form-control">
-                        @error('title')
-                            <small id="helpId" class="text-muted">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
+            @can('manage-posts')
+                <form action="{{ Route('post.store') }}" method="POST">
+                    @csrf
+                    <div class="card-header">
                         <div class="mb-3">
-                            <label for="" class="form-label">Category</label>
-                            <select class="form-select form-select" name="category_id" id="category_id">
-                                <option selected disabled>Select one</option>
-                                @foreach ($categories as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="title" class="form-label">title</label>
+                            <input type="text" name="title" class="form-control">
+                            @error('title')
+                                <small id="helpId" class="text-muted">{{ $message }}</small>
+                            @enderror
                         </div>
-                        @error('category_id')
-                            <small id="helpId" class="text-muted">{{ $message }}</small>
-                        @enderror
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Category</label>
+                                <select class="form-select form-select" name="category_id" id="category_id">
+                                    <option selected disabled>Select one</option>
+                                    @foreach ($categories as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('category_id')
+                                <small id="helpId" class="text-muted">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="body" class="form-label">body</label>
+                            <textarea class="form-control" name="body" id="body" rows="3"></textarea>
+                            @error('body')
+                                <small id="helpId" class="text-muted">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="body" class="form-label">body</label>
-                        <textarea class="form-control" name="body" id="body" rows="3"></textarea>
-                        @error('body')
-                            <small id="helpId" class="text-muted">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            @endcan
             <div class="card-body">
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
@@ -74,28 +76,34 @@
                                 <td>{{ $item->category->name }}</td>
                                 <td>{{ $item->status == 0 ? 'Unpublish' : 'Publish' }}</td>
                                 <td>
-                                    <div class="d-flex gap-4">
-                                        @if ($item->status == 0)
-                                            <form action="{{ Route('publish', $item->id) }}" method="post">
+                                    @can('manage-posts')
+                                        <div class="d-flex gap-4">
+                                            @role('admin')
+                                            @if ($item->status == 0)
+                                                <form action="{{ Route('publish', $item->id) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success">Publish</button>
+                                                </form>
+                                            @elseif ($item->status == 1)
+                                                <form action="{{ Route('unpublish', $item->id) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-secondary">Unpublish</button>
+                                                </form>
+                                            @endif
+                                            @endrole
+
+
+                                            <a class="btn btn-warning" href="{{ Route('post.show', $item->id) }}">Lihat</a>
+
+                                            <form action="{{ Route('post.destroy', $item->id) }}" method="post">
                                                 @csrf
-                                                <button type="submit" class="btn btn-success">Publish</button>
+                                                @method('Delete')
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
                                             </form>
-                                        @elseif ($item->status == 1)
-                                            <form action="{{ Route('unpublish', $item->id) }}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-secondary">Unpublish</button>
-                                            </form>
-                                        @endif
-
-
-                                        <a class="btn btn-warning" href="{{ Route('post.show', $item->id) }}">Lihat</a>
-
-                                        <form action="{{ Route('post.destroy', $item->id) }}" method="post">
-                                            @csrf
-                                            @method('Delete')
-                                            <button type="submit" class="btn btn-danger">Hapus</button>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    @else
+                                        NO AKSES
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
