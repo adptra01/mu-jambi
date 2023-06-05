@@ -91,6 +91,7 @@ php artisan serve
    Email: writer@example.com
    Password: password
 
-Pastikan untuk menyesuaikan informasi pengguna dengan yang telah terdaftar di dalam sistem.
+Pastikan untuk menyesuaikan informasi pengguna dengan yang telah terdaftar di dalam sistem dan juga anda dapat membuat user baru pada menu register.
+
 
 Terima kasih, dan semoga berhasil! Jika Anda memiliki pertanyaan lebih lanjut, jangan ragu untuk bertanya.
